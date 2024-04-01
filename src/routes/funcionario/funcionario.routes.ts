@@ -1,3 +1,5 @@
+//contato dos funcionários de inspeção + verificadores + login do sistema
+
 import { Router } from 'express'
 import FuncionarioController from '../../controllers/funcionario/funcionario.controller'
 import authMiddleware from '../../middlewares/auth.middleware'
