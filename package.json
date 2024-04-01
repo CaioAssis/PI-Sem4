@@ -1,0 +1,21 @@
+{
+  "name": "pi-sem4",
+  "version": "1.0.0",
+  "description": "Sistema Web de inspeção de máquinas",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CaioAssis/PI-Sem4.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/CaioAssis/PI-Sem4/issues"
+  },
+  "homepage": "https://github.com/CaioAssis/PI-Sem4#readme"
+}
