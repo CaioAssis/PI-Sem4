@@ -16,7 +16,7 @@ export default class Token extends BaseEntity {
     expiresAt! : Date
 
     @Column()
-    userId! : number
+    funcId! : number
 
     @ManyToOne(() => Funcionario, func => func.tokens)
     func!: Funcionario

@@ -14,7 +14,7 @@ export default async function authMiddleware(req: Request, res: Response, next: 
         return res.status(401).json({ erro: 'Token vencido'})
     }
 
-    req.headers.userId = userToken.userId.toString()
+    req.headers.userId = userToken.funcId.toString()
     next()
     
 }
