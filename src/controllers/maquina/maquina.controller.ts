@@ -4,8 +4,9 @@ import Maquina from '../../models/maquina.entity'
 
 export default class MaquinaController
 {
-    //função que lista todas as máquinas
-    static async getMaquina(req: Request, res: Response) {
+
+    //Inserindo um novo registro
+    static async createMaquina(req: Request, res: Response) {
         const{codMaquina, descricao} = req.body
 
         //verificando se campos estão em null
@@ -24,6 +25,18 @@ export default class MaquinaController
         maquina.descricao = descricao
 
         await maquina.save()
+
+        return res.status(201).json(maquina)
+    }
+
+    //função que lista todas as máquinas
+    static async getMaquina(req: Request, res: Response) {
+        const{codMaquina, descricao} = req.body
+
+        //Estacionando(é zoeira caio, no merge eu mudo issokkkk) a classe presente nos modelos
+        //const maquina = new Maquina() não estou mais estancionando porque é desnecessário
+
+        const maquina = await Maquina.find()
 
         return res.status(201).json(maquina)
     }
