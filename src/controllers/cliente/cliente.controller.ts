@@ -25,7 +25,7 @@ export default class ClienteController {
     }
 
     static async index (req:Request, res:Response){
-        const cliente = await ClienteController.find()
+        const cliente = await Cliente.find()
         return res.json(cliente)
     }
 

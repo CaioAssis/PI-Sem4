@@ -1,17 +1,17 @@
-import {Entity, BaseEntity, PrimeryGeneratedColumm, Columm} from 'typeorm'
+import {Entity, BaseEntity, PrimaryGeneratedColumn, Column} from 'typeorm'
 
 @Entity()
 export default class Cliente extends BaseEntity{
     
-    @PrimeryGeneratedColumm()
+    @PrimaryGeneratedColumn()
     id!: number
 
-    @Columm()
+    @Column()
     nome!: string
 
-    @Columm()
+    @Column()
     cpf!: string
 
-    @Columm()
+    @Column()
     contato!: string
 }
