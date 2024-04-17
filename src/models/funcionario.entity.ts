@@ -11,7 +11,7 @@ export default class Funcionario extends BaseEntity {
     nome!: string
 
     @Column()
-    cnpj!: string
+    matricula!: string
 
     @Column()
     contato!: string
