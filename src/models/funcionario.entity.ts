@@ -1,5 +1,6 @@
 import { Entity, BaseEntity, PrimaryGeneratedColumn, Column, OneToMany } from "typeorm"
 import Token from "./token.entity"
+//import Vistoria from "./vistoria.entity"
 
 @Entity()
 export default class Funcionario extends BaseEntity {
@@ -10,7 +11,7 @@ export default class Funcionario extends BaseEntity {
     nome!: string
 
     @Column()
-    cnpj!: string
+    matricula!: string
 
     @Column()
     contato!: string
@@ -21,9 +22,17 @@ export default class Funcionario extends BaseEntity {
     @Column()
     senha!: string
 
+    @Column()
+    role?: string
+    /*
+    ger - gerência, acesso total + alteração de roles
+    fun - funcionario, criação/edição de inspeção própria, visualização de inspeções
+    ter - funcionário tercerizado, criação/ edição de inspeção própria, visualização de inspeções realizadas
+    */
+
     @OneToMany(() => Token, token => token.func)
     tokens! : Token[]
 
-    //@OneToMany(() => Task, task => task.user)
-    //tasks!: Task[]
+    /*@OneToMany(() => Vistoria, vistoria => vistoria.id)
+    vistoria: Vistoria[]*/
 }

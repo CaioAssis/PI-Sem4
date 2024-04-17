@@ -3,19 +3,19 @@ import bcrypt from 'bcrypt'
 import Funcionario from '../../models/funcionario.entity'
 import Token from '../../models/token.entity'
 
-export default class AuthController {
+export default class FuncController {
     static async store (req: Request, res: Response){
-        const {nome, cnpj, contato, usuario, senha} = req.body
+        const {nome, matricula, contato, usuario, senha} = req.body
 
         if(!nome) return res.status(400).json({error: "Nome obrigatório"})
-        if(!cnpj) return res.status(400).json({error: "CNPJ obrigatório"})
+        if(!matricula) return res.status(400).json({error: "Matrícula obrigatório"})
         if(!contato) return res.status(400).json({error: "Contato obrigatório"})
         if(!usuario) return res.status(400).json({error: "Usuario obrigatório"})
         if(!senha) return res.status(400).json({error: "Senha obrigatória"})
 
         const func = new Funcionario()
         func.nome = nome
-        func.cnpj = cnpj
+        func.matricula = matricula
         func.contato = contato
         func.usuario = usuario
         func.senha = bcrypt.hashSync(senha,10) //senha + nº de vezes que vai encriptar
@@ -24,9 +24,10 @@ export default class AuthController {
         return res.json({
             id: func.id,
             nome: func.nome,
-            cnpj: func.cnpj,
+            matricula: func.matricula,
             contato: func.contato,
-            usuario: func.usuario
+            usuario: func.usuario,
+            role: func.role
         })
     }
     
@@ -110,13 +111,13 @@ export default class AuthController {
     static async update(req: Request, res: Response){
 
         const { id } = req.params
-        const { nome, cnpj, contato, usuario, senha } = req.body
+        const { nome, matricula, contato, usuario, senha } = req.body
         const { userId } = req.headers
 
         if (!userId) return res.status(401).json({ error: 'Usuário não autenticado' })
 
         if(!nome)return res.status(400).json({ error: 'O Nome é obrigatório' })
-        if(!cnpj) return res.status(400).json({error: "CNPJ obrigatório"})
+        if(!matricula) return res.status(400).json({error: "Matrícula obrigatório"})
         if(!contato) return res.status(400).json({error: "Contato obrigatório"})
         if(!usuario) return res.status(400).json({error: "Usuario obrigatório"})
         if(!senha) return res.status(400).json({error: "Senha obrigatória"})
@@ -133,10 +134,45 @@ export default class AuthController {
 
         //func.title = title || func.title // caso title for nulo na requisição (PUT), mantem o titulo original
         func.nome = nome
-        func.cnpj = cnpj
+        func.matricula = matricula
         func.contato = contato
         func.usuario = usuario
         func.senha = bcrypt.hashSync(senha,10) //senha + nº de vezes que vai encriptar
+        await func.save()
+
+        return res.json(func)
+    }
+
+    static async updateRole(req: Request, res: Response){
+        const { id } = req.params
+        const { nome, matricula, contato, usuario, senha, role } = req.body
+        const { userId } = req.headers
+
+        if (!userId) return res.status(401).json({ error: 'Usuário não autenticado' })
+
+        if(!nome)return res.status(400).json({ error: 'O Nome é obrigatório' })
+        if(!matricula) return res.status(400).json({error: "Matrícula obrigatória"})
+        if(!contato) return res.status(400).json({error: "Contato obrigatório"})
+        if(!usuario) return res.status(400).json({error: "Usuario obrigatório"})
+        if(!senha) return res.status(400).json({error: "Senha obrigatória"})
+        if(!role) return res.status(400).json({error: "Nível de permissão obrigatório"})
+
+        if(!id || isNaN(Number(id))){
+            return res.status(400).json({ erro: 'O id é obrigatório'})
+        }
+
+        const func = await Funcionario.findOneBy({id: Number(id)})
+
+        if(!func) {
+            return res.status(404).json({erro: 'Não encontrado'})
+        }
+
+        func.nome = nome
+        func.matricula = matricula
+        func.contato = contato
+        func.usuario = usuario
+        func.senha = bcrypt.hashSync(senha,10)
+        func.role = role
         await func.save()
 
         return res.json(func)
