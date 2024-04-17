@@ -23,7 +23,12 @@ export default class Funcionario extends BaseEntity {
     senha!: string
 
     @Column()
-    role!: number
+    role?: string
+    /*
+    ger - gerência, acesso total + alteração de roles
+    fun - funcionario, criação/edição de inspeção própria, visualização de inspeções
+    ter - funcionário tercerizado, criação/ edição de inspeção própria, visualização de inspeções realizadas
+    */
 
     @OneToMany(() => Token, token => token.func)
     tokens! : Token[]

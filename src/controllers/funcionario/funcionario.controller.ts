@@ -3,7 +3,7 @@ import bcrypt from 'bcrypt'
 import Funcionario from '../../models/funcionario.entity'
 import Token from '../../models/token.entity'
 
-export default class AuthController {
+export default class FuncController {
     static async store (req: Request, res: Response){
         const {nome, cnpj, contato, usuario, senha} = req.body
 
@@ -26,7 +26,8 @@ export default class AuthController {
             nome: func.nome,
             cnpj: func.cnpj,
             contato: func.contato,
-            usuario: func.usuario
+            usuario: func.usuario,
+            role: func.role
         })
     }
     
