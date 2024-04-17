@@ -12,5 +12,6 @@ funcRoutes.get('/all', authMiddleware, FuncionarioController.index) //PARA TESTE
 funcRoutes.get('/:id', authMiddleware, FuncionarioController.show)
 funcRoutes.delete('/:id', authMiddleware, FuncionarioController.delete)
 funcRoutes.put('/:id', authMiddleware, FuncionarioController.update)
+funcRoutes.put('/master/:id', authMiddleware, FuncionarioController.updateRole)
 
 export default funcRoutes

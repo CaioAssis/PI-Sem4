@@ -156,5 +156,25 @@ export default class FuncController {
         if(!usuario) return res.status(400).json({error: "Usuario obrigatório"})
         if(!senha) return res.status(400).json({error: "Senha obrigatória"})
         if(!role) return res.status(400).json({error: "Nível de permissão obrigatório"})
+
+        if(!id || isNaN(Number(id))){
+            return res.status(400).json({ erro: 'O id é obrigatório'})
+        }
+
+        const func = await Funcionario.findOneBy({id: Number(id)})
+
+        if(!func) {
+            return res.status(404).json({erro: 'Não encontrado'})
+        }
+
+        func.nome = nome
+        func.matricula = matricula
+        func.contato = contato
+        func.usuario = usuario
+        func.senha = bcrypt.hashSync(senha,10)
+        func.role = role
+        await func.save()
+
+        return res.json(func)
     }
 }
