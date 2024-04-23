@@ -1,5 +1,6 @@
 import {Entity, BaseEntity, PrimaryGeneratedColumn, Column} from 'typeorm'
-
+import moduloDescricao from './moduloDescricao.entity'
+import ModuloDescricao from './moduloDescricao.entity'
 @Entity()
 export default class Maquina extends BaseEntity{
     
@@ -9,4 +10,5 @@ export default class Maquina extends BaseEntity{
     @Column()
     descricao!: string
 
+    
 }
