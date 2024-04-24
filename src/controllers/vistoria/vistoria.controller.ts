@@ -6,18 +6,21 @@ export default class VistoriaController
 
     //Inserindo um novo registro
     static async createVistoria(req: Request, res: Response) {
-        const{data} = req.body
+        const{data, anexo} = req.body
 
         //verificando se campos estão em null
         if(!data)
         {
             return res.status(400).json({error: 'Data é obrigatório!'})
         }
-
-        //Estacionando(é zoeira caio, no merge eu mudo issokkkk) a classe presente nos modelos
+        if(!anexo)
+            {
+                return res.status(400).json({error: 'Data é obrigatório!'})
+            }
+        //Estacionando(é zoeira caio, no merge eu mudo issokkkk) a classe presente nos modelos //krl guilherm'ao, nem pra tirar o comentario malditokkkk
         const vistoria = new Vistoria()
         vistoria.data = data //atribuindo os valores obtidos no corpo da requisição
-
+        vistoria.anexo = anexo
         await vistoria.save()
 
         return res.status(201).json(vistoria),0
@@ -25,7 +28,6 @@ export default class VistoriaController
 
     //função que lista todas as máquinas
     static async getVistoria(req: Request, res: Response) {
-        const{data} = req.body
 
         //Estacionando(é zoeira caio, no merge eu mudo issokkkk) a classe presente nos modelos
         //const maquina = new Maquina() não estou mais estancionando porque é desnecessário
@@ -86,7 +88,7 @@ export default class VistoriaController
     static async updateVistoria(req: Request, res: Response)
     {
         const id = req.params
-        const data = req.body
+        const {data, anexo} = req.body
 
         if(!id)
         {1
@@ -96,8 +98,12 @@ export default class VistoriaController
         {
             return res.status(400).json({error: 'Data é obrigatório'})
         }
+        if(!anexo)
+            {
+                return res.status(400).json({error: 'Anexo é obrigatório'})
+            }
 
-        const vistoria = await Vistoria.findOneBy({data: String(id)}); 
+        const vistoria = await Vistoria.findOneBy({id: String(id)}); 
         if(!vistoria)
         {
             return res.status(404).json({error:'Máquina não encontrada'})
@@ -105,7 +111,7 @@ export default class VistoriaController
         }
         
         vistoria.data = data
-
+        vistoria.anexo = anexo
         await vistoria.save()
 
         return res.json(vistoria)

@@ -7,4 +7,7 @@ export default class Vistoria extends BaseEntity {
 
     @Column()
     data! : String
+    
+    @Column()
+    anexo!  :  String
 }
