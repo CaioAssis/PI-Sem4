@@ -1,17 +1,18 @@
 import {Entity, BaseEntity, PrimaryGeneratedColumn, Column} from 'typeorm'
 
 @Entity()
-export default class Cliente extends BaseEntity{
+export default class ModuloInspecao extends BaseEntity{
     
     @PrimaryGeneratedColumn()
-    id!: number
+    codModuloInspecao!: number
 
     @Column()
-    nome!: string
+    status!: string
 
     @Column()
-    cpf!: string
+    descricao!: string
 
     @Column()
-    contato!: string
+    imagem!: string
+
 }
