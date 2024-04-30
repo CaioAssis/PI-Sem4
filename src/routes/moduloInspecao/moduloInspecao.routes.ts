@@ -11,12 +11,12 @@ import ModuloInspecaoController from '../../controllers/moduloInspecao/moduloIns
  *  "imagem": "enderecodaimagemenome.jpg"
  * }
  */
-const mooduloDesccricaoRoutes = Router()
+const moduloInspecaoRoutes = Router()
 
-mooduloDesccricaoRoutes.post('/save', ModuloInspecaoController.createModuloInspecao)
-mooduloDesccricaoRoutes.get('/get', ModuloInspecaoController.getModuloInspecao)
-mooduloDesccricaoRoutes.get('/get/:id', ModuloInspecaoController.getModuloInspecaoById)
-mooduloDesccricaoRoutes.delete('/delete/:id', ModuloInspecaoController.destroyModuloInspecao)
-mooduloDesccricaoRoutes.put('/update/:id', ModuloInspecaoController.updateModuloInspecao)
+moduloInspecaoRoutes.post('/save', ModuloInspecaoController.createModuloInspecao)
+moduloInspecaoRoutes.get('/get', ModuloInspecaoController.getModuloInspecao)
+moduloInspecaoRoutes.get('/get/:id', ModuloInspecaoController.getModuloInspecaoById)
+moduloInspecaoRoutes.delete('/delete/:id', ModuloInspecaoController.destroyModuloInspecao)
+moduloInspecaoRoutes.put('/update/:id', ModuloInspecaoController.updateModuloInspecao)
 
-export default mooduloDesccricaoRoutes
+export default moduloInspecaoRoutes

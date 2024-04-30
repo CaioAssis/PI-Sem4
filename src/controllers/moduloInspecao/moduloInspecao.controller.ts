@@ -16,7 +16,7 @@ export default class ModuloInspecaoController
 
     //Inserindo um novo registro
     static async createModuloInspecao(req: Request, res: Response) {
-        const{status, descricao, imagem} = req.body
+        const{status, descricao, imagem, vistoria} = req.body
 
         //verificando se campos estão em null
         if(!status)
@@ -31,12 +31,18 @@ export default class ModuloInspecaoController
             {
                 return res.status(400).json({error: 'A imagem é obrigatórioa!'})
             }
-
+        if(!vistoria)
+                {
+                    return res.status(400).json({error: 'A relação é obrigatórioa!'})
+                }
+    
         //Estanciando
         const moduloInspecao = new ModuloInspecao()        
         moduloInspecao.status = status
         moduloInspecao.descricao = descricao;
         moduloInspecao.imagem = imagem;
+        moduloInspecao.vistoria = vistoria;
+
         await moduloInspecao.save()
 
         return res.status(201).json(moduloInspecao)
@@ -44,8 +50,6 @@ export default class ModuloInspecaoController
 
     //função que lista todas as máquinas
     static async getModuloInspecao(req: Request, res: Response) {
-        const{codMaquina, descricao} = req.body
-
         //Estacionando(é zoeira caio, no merge eu mudo issokkkk) a classe presente nos modelos
         //const moduloInspecao = new Maquina() não estou mais estancionando porque é desnecessário
 
@@ -57,7 +61,7 @@ export default class ModuloInspecaoController
     //O nome é autoexplicativo soldado
     static async getModuloInspecaoById(req: Request, res: Response)
     {
-        const id = req.params
+        const {id} = req.params
 
         //verificando se existe algo na const id, se não tiver o usuário é muito burro, tá achando que o sistema vai achar as coisas como?
         if(!id)
@@ -78,7 +82,7 @@ export default class ModuloInspecaoController
     //Eliminar um registro
     static async destroyModuloInspecao(req: Request, res: Response)
     {
-        const id = req.params
+        const {id} = req.params
         if(!id)
         {
             return res.status(400).json({error: 'O id é obrigatório'})
@@ -106,8 +110,8 @@ export default class ModuloInspecaoController
     //Atualizar um registro
     static async updateModuloInspecao(req: Request, res: Response)
     {
-        const id = req.params
-        const {status, descricao, imagem} = req.body
+        const {id} = req.params
+        const {status, descricao, imagem, vistoria} = req.body
 
         if(!id)
         {
@@ -125,6 +129,10 @@ export default class ModuloInspecaoController
             {
                 return res.status(400).json({error: 'A imagem é obrigatória'})
             }
+            if(!vistoria)
+                {
+                    return res.status(400).json({error: 'A vistoria é obrigatória'})
+                }
 
         const moduloInspecao = await ModuloInspecao.findOneBy({codModuloInspecao: Number(id)}); 
         if(!moduloInspecao)
@@ -133,7 +141,10 @@ export default class ModuloInspecaoController
 
         }
         
-        moduloInspecao.descricao = descricao
+        moduloInspecao.status = status
+        moduloInspecao.descricao = descricao;
+        moduloInspecao.imagem = imagem;
+        moduloInspecao.vistoria = vistoria;
 
         await moduloInspecao.save()
 
