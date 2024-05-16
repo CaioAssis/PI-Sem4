@@ -13,4 +13,8 @@ maqRoutes.get('/get/:id', Maquina.getMaquinaById)//diferente mas igual, lista po
 maqRoutes.put('/update/:id', Maquina.updateMaquina) //Atualiza
 maqRoutes.delete('/delete/:id', Maquina.destroyMaquina) //Deleta
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> Vistoria
 export default maqRoutes

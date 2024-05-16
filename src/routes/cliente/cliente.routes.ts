@@ -6,9 +6,10 @@ import ClienteController from '../../controllers/cliente/cliente.controller'
 
 const clienteRoutes = Router()
 
-clienteRoutes.get('/', ClienteController.index)
-clienteRoutes.get('/:id', ClienteController.show)
-clienteRoutes.delete('/:id',ClienteController.delete)
-clienteRoutes.put('/:id',ClienteController.update)
+clienteRoutes.post('/save', ClienteController.store)
+clienteRoutes.get('/get', ClienteController.index)
+clienteRoutes.get('/get/:id', ClienteController.show)
+clienteRoutes.delete('/delete/:id',ClienteController.delete)
+clienteRoutes.put('/update/:id',ClienteController.update)
 
 export default clienteRoutes
