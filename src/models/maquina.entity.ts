@@ -1,4 +1,5 @@
-import {Entity, BaseEntity, PrimaryGeneratedColumn, Column} from 'typeorm'
+import {Entity, BaseEntity, PrimaryGeneratedColumn, Column, OneToMany} from 'typeorm'
+import Vistoria from './vistoria.entity'
 
 @Entity()
 export default class Maquina extends BaseEntity{
@@ -9,4 +10,6 @@ export default class Maquina extends BaseEntity{
     @Column()
     descricao!: string
 
+    @OneToMany(()=> Vistoria, vistoria => vistoria.maquina)
+    vistorias!: Vistoria[]
 }

@@ -12,7 +12,7 @@ const routes = Router()
 
 routes.use('/func',funcRoutes)
 routes.use('/client', clienteRoutes)
-routes.use('/mach',maqRoutes)
+routes.use('/maquina',maqRoutes)
 routes.use('/modlist',listaModuloRoutes)
 routes.use('/moddesc',moduloDescRoutes)
 routes.use('/moduloInspecao', moduloInspecaoRoutes)
