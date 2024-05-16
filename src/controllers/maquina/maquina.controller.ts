@@ -7,15 +7,9 @@ export default class MaquinaController
 
     //Inserindo um novo registro
     static async createMaquina(req: Request, res: Response) {
-<<<<<<< HEAD
-        const descricao = req.body
-
-        //verificando se campos estão em null
-=======
         const{descricao} = req.body
 
         
->>>>>>> Vistoria
         if(!descricao)
         {
             return res.status(400).json({error: 'O modelo é obrigatório!'})
@@ -23,10 +17,6 @@ export default class MaquinaController
 
         //Estacionando(é zoeira caio, no merge eu mudo issokkkk) a classe presente nos modelos
         const maquina = new Maquina()
-<<<<<<< HEAD
-        //atribuindo os valores obtidos no corpo da requisição
-=======
->>>>>>> Vistoria
         maquina.descricao = descricao
 
         await maquina.save()
