@@ -4,7 +4,7 @@ import Cliente from '../../models/cliente.entity'
 
 export default class ClienteController {
     static async store (req: Request, res:Response){
-        const{nome, cpf, contato} =req.body
+        const{nome, cpf, contato} = req.body
 
         if(!nome){
             return res.status(400).json({error:'O nome é obrigatório'})

@@ -5,10 +5,11 @@ export default class ModuloDescricaoController
 {
 
     static async createModuloDescricao(req: Request, res: Response) { //Cria um novo modulo descrição
-        const{codModuloDescricao, titulo, descricao, imagem} = req.body
+        const{ id } = req.params
+        const{ titulo, descricao, imagem} = req.body
 
         //verificando se campos estão em null
-        if(!codModuloDescricao)
+        if(!id)
         {
             return res.status(400).json({error:'O código é obrigatório!'})
         }
@@ -25,7 +26,7 @@ export default class ModuloDescricaoController
         }
 
         const moduloDescricao = new ModuloDescricao()
-        moduloDescricao.codModuloDescricao = codModuloDescricao//atribuindo os valores obtidos no corpo da requisição
+        moduloDescricao.id = Number(id)//atribuindo os valores obtidos no corpo da requisição
         moduloDescricao.titulo = titulo
         moduloDescricao.descricao = descricao
         moduloDescricao.imagem = imagem
@@ -47,7 +48,7 @@ export default class ModuloDescricaoController
             return res.status(400).json({error: 'O id é obrigatório'})
         }
 
-        const moduloDescricao = await ModuloDescricao.find({where: {codModuloDescricao: Number(id)}})
+        const moduloDescricao = await ModuloDescricao.find({where: {id: Number(id)}})
         
         return res.status(201).json(moduloDescricao)
 
@@ -66,7 +67,7 @@ export default class ModuloDescricaoController
             return res.status(400).json({error:'O id é obrigatório'})
         }
 
-        const moduloDescricao = await ModuloDescricao.findOneBy({codModuloDescricao: Number(id)}); 
+        const moduloDescricao = await ModuloDescricao.findOneBy({id: Number(id)}); 
 
         //Verificando se a const moduloDescricao criada acima já recebeu um retorno
         if(!moduloDescricao)
@@ -102,7 +103,7 @@ export default class ModuloDescricaoController
             return res.status(400).json({error: 'A imagem é obrigatório'})
         }
 
-        const moduloDescricao = await ModuloDescricao.findOneBy({codModuloDescricao: Number(id)}); 
+        const moduloDescricao = await ModuloDescricao.findOneBy({id: Number(id)}); 
         if(!moduloDescricao)
         {
             return res.status(404).json({error:'Máquina não encontrada'})

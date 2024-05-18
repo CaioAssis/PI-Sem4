@@ -5,7 +5,7 @@ import Vistoria from './vistoria.entity'
 export default class ModuloInspecao extends BaseEntity{
     
     @PrimaryGeneratedColumn()
-    codModuloInspecao!: number
+    id!: number
 
     @Column()
     status!: string

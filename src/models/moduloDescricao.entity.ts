@@ -4,7 +4,7 @@ import {Entity, BaseEntity, PrimaryGeneratedColumn, Column} from 'typeorm'
 export default class ModuloDescricao extends BaseEntity{
     
     @PrimaryGeneratedColumn()
-    codModuloDescricao!: number
+    id!: number
 
     @Column()
     titulo!: string

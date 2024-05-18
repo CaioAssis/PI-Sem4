@@ -5,7 +5,7 @@ import Vistoria from './vistoria.entity'
 export default class Maquina extends BaseEntity{
     
     @PrimaryGeneratedColumn()
-    codMaquina!: number
+    id!: number
 
     @Column()
     descricao!: string
