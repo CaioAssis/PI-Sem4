@@ -15,7 +15,6 @@ export default class MaquinaController
             return res.status(400).json({error: 'O modelo é obrigatório!'})
         }
 
-        //Estacionando(é zoeira caio, no merge eu mudo issokkkk) a classe presente nos modelos
         const maquina = new Maquina()
         maquina.descricao = descricao
 
@@ -28,31 +27,21 @@ export default class MaquinaController
     static async getMaquina(req: Request, res: Response) {
         const{codMaquina, descricao} = req.body
 
-        //Estacionando(é zoeira caio, no merge eu mudo issokkkk) a classe presente nos modelos
-        //const maquina = new Maquina() não estou mais estancionando porque é desnecessário
-
         const maquina = await Maquina.find()
 
         return res.status(201).json(maquina)
     }
 
-    //O nome é autoexplicativo soldado
     static async getMaquinaById(req: Request, res: Response)
     {
         const { id } = req.params
 
-        //verificando se existe algo na const id, se não tiver o usuário é muito burro, tá achando que o sistema vai achar as coisas como?
         if(!id)
         {
             return res.status(400).json({error: 'O id é obrigatório'})
         }
 
-        //Mesma coisa da ultiam função, bobão
         const maquina = await Maquina.find({where: {id: Number(id)}})
-        //também podia ter usado o findone
-
-        //Cansei de explicar, acho que a essa altura já deu de entender
-       
 
         return res.status(201).json(maquina)
 
