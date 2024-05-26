@@ -5,13 +5,14 @@ import Token from '../../models/token.entity'
 
 export default class FuncController {
     static async store (req: Request, res: Response){
-        const {nome, matricula, contato, usuario, senha} = req.body
+        const {nome, matricula, contato, usuario, senha, role} = req.body
 
         if(!nome) return res.status(400).json({error: "Nome obrigatório"})
         if(!matricula) return res.status(400).json({error: "Matrícula obrigatório"})
         if(!contato) return res.status(400).json({error: "Contato obrigatório"})
         if(!usuario) return res.status(400).json({error: "Usuario obrigatório"})
         if(!senha) return res.status(400).json({error: "Senha obrigatória"})
+        if(!role) return res.status(400).json({error: "Categoria de permissão obrigatória"})
 
         const func = new Funcionario()
         func.nome = nome
@@ -19,6 +20,7 @@ export default class FuncController {
         func.contato = contato
         func.usuario = usuario
         func.senha = bcrypt.hashSync(senha,10) //senha + nº de vezes que vai encriptar
+        func.role = role
         await func.save()
 
         return res.json({
@@ -111,7 +113,7 @@ export default class FuncController {
     static async update(req: Request, res: Response){
 
         const { id } = req.params
-        const { nome, matricula, contato, usuario, senha } = req.body
+        const { nome, matricula, contato, usuario, senha, role } = req.body
         const { userId } = req.headers
 
         if (!userId) return res.status(401).json({ error: 'Usuário não autenticado' })
@@ -121,6 +123,7 @@ export default class FuncController {
         if(!contato) return res.status(400).json({error: "Contato obrigatório"})
         if(!usuario) return res.status(400).json({error: "Usuario obrigatório"})
         if(!senha) return res.status(400).json({error: "Senha obrigatória"})
+        if(!role) return res.status(400).json({error: "Permissão obrigatória"})
         //
         if(!id || isNaN(Number(id))){
             return res.status(400).json({ erro: 'O id é obrigatório'})
@@ -138,6 +141,7 @@ export default class FuncController {
         func.contato = contato
         func.usuario = usuario
         func.senha = bcrypt.hashSync(senha,10) //senha + nº de vezes que vai encriptar
+        func.role = role
         await func.save()
 
         return res.json(func)
