@@ -70,7 +70,7 @@ export default class ModuloInspecaoController
         }
 
         //Mesma coisa da ultima função
-        const moduloInspecao = await ModuloInspecao.find({where: {codModuloInspecao: Number(id)}})
+        const moduloInspecao = await ModuloInspecao.find({where: {id: Number(id)}})
         //também podia ter usado o findone
 
 
@@ -93,7 +93,7 @@ export default class ModuloInspecaoController
             return res.status(400).json({error:'O id é obrigatório'})
         }
 
-        const moduloInspecao = await ModuloInspecao.findOneBy({codModuloInspecao: Number(id)}); 
+        const moduloInspecao = await ModuloInspecao.findOneBy({id: Number(id)}); 
 
         if(!moduloInspecao)
         {
@@ -134,7 +134,7 @@ export default class ModuloInspecaoController
                     return res.status(400).json({error: 'A vistoria é obrigatória'})
                 }
 
-        const moduloInspecao = await ModuloInspecao.findOneBy({codModuloInspecao: Number(id)}); 
+        const moduloInspecao = await ModuloInspecao.findOneBy({id: Number(id)}); 
         if(!moduloInspecao)
         {
             return res.status(404).json({error:'Não encontrado'})

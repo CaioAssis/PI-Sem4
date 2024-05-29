@@ -75,7 +75,7 @@ export default class VistoriaController {
            maquina: true,
         }})   */
 
-        const vistorias = await Vistoria.find({ where: {maquinaCodMaquina: Number(id)/*é obrigatório ser um número porque no banco é um number*/}});
+        const vistorias = await Vistoria.find({ where: {maquinaId: Number(id)/*é obrigatório ser um número porque no banco é um number*/}});
         
         return res.status(201).json(vistorias)
 

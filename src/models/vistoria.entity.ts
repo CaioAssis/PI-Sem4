@@ -16,7 +16,7 @@ export default class Vistoria extends BaseEntity {
     status!: String
 
     @Column()
-    maquinaCodMaquina!: number
+    maquinaId!: number
 
     @OneToMany(() => ModuloInspecao, (modulo) => modulo.vistoria)
     modulo!: ModuloInspecao[]
