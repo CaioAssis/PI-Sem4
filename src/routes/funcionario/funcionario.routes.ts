@@ -8,10 +8,10 @@ const funcRoutes = Router()
 
 funcRoutes.post('/save', FuncionarioController.store)
 funcRoutes.post('/login', FuncionarioController.login)
-funcRoutes.get('/get', authMiddleware, FuncionarioController.index) //PARA TESTES - PROBLEMA DE SEGURANÇA
-funcRoutes.get('/get/:id', authMiddleware, FuncionarioController.show)
-funcRoutes.delete('/delete/:id', authMiddleware, FuncionarioController.delete)
-funcRoutes.put('/update/:id', authMiddleware, FuncionarioController.update)
-funcRoutes.put('/master/:id', authMiddleware, FuncionarioController.updateRole)
+funcRoutes.get('/get', FuncionarioController.index) //PARA TESTES - PROBLEMA DE SEGURANÇA
+funcRoutes.get('/get/:id', FuncionarioController.show)
+funcRoutes.delete('/delete/:id', FuncionarioController.delete)
+funcRoutes.put('/update/:id', FuncionarioController.update)
+funcRoutes.put('/master/:id', FuncionarioController.updateRole)
 
 export default funcRoutes
