@@ -114,9 +114,6 @@ export default class FuncController {
 
         const { id } = req.params
         const { nome, matricula, contato, usuario, senha, role } = req.body
-        const { userId } = req.headers
-
-        if (!userId) return res.status(401).json({ error: 'Usuário não autenticado' })
 
         if(!nome)return res.status(400).json({ error: 'O Nome é obrigatório' })
         if(!matricula) return res.status(400).json({error: "Matrícula obrigatório"})
