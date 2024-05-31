@@ -6,11 +6,11 @@ import authMiddleware from '../../middlewares/auth.middleware'
 
 const funcRoutes = Router()
 
-funcRoutes.post('/register', FuncionarioController.store) // cadastra
+funcRoutes.post('/save', FuncionarioController.store) // cadastra
 funcRoutes.post('/login', FuncionarioController.login) //login
-funcRoutes.get('/', FuncionarioController.index) // lista todos
-funcRoutes.get('/:id', FuncionarioController.show) //lista um
-funcRoutes.delete('/:id', authMiddleware, FuncionarioController.delete)
-funcRoutes.put('/:id', authMiddleware, FuncionarioController.update)
+funcRoutes.get('/get', FuncionarioController.index) // lista todos
+funcRoutes.get('/get/:id', FuncionarioController.show) //lista um
+funcRoutes.delete('/delete/:id', FuncionarioController.delete)
+funcRoutes.put('/update/:id', FuncionarioController.update)
 
 export default funcRoutes

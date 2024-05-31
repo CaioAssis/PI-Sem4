@@ -62,9 +62,9 @@ export default class FuncController {
     }
 
     static async index(req: Request, res: Response){
-        const { id } = req.params
+       /* const { id } = req.params
 
-        if (!id) return res.status(401).json({ error: 'Usuário não autenticado' })
+        if (!id) return res.status(401).json({ error: 'Usuário não autenticado' })*/
 
         const func = await Funcionario.find()
         return res.status(200).json(func)
