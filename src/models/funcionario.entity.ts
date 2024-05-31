@@ -23,7 +23,7 @@ export default class Funcionario extends BaseEntity {
     senha!: string
 
     @Column()
-    role?: string
+    role!: string
     /*
     ger - gerência, acesso total + alteração de roles
     fun - funcionario, criação/edição de inspeção própria, visualização de inspeções

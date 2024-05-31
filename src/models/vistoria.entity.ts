@@ -1,5 +1,4 @@
 import { Entity, BaseEntity, PrimaryGeneratedColumn, Column, ManyToMany, ManyToOne, OneToMany } from "typeorm"
-import ModuloInspecao from "./moduloInspecao.entity"
 import Maquina from "./maquina.entity"
 @Entity()
 export default class Vistoria extends BaseEntity {
@@ -17,9 +16,6 @@ export default class Vistoria extends BaseEntity {
 
     @Column()
     maquinaId!: number
-
-    @OneToMany(() => ModuloInspecao, (modulo) => modulo.vistoria)
-    modulo!: ModuloInspecao[]
 
     @ManyToOne(() => Maquina, maquina => maquina.vistorias)
     maquina!: Maquina

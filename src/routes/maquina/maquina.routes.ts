@@ -7,10 +7,10 @@ import Maquina from '../../controllers/maquina/maquina.controller'
 const maqRoutes = Router()
 
 //rotas
-maqRoutes.post('/save', Maquina.createMaquina) //cria
-maqRoutes.get('/get', Maquina.getMaquina) //lista
-maqRoutes.get('/get/:id', Maquina.getMaquinaById)//diferente mas igual, lista por id
-maqRoutes.put('/update/:id', Maquina.updateMaquina) //Atualiza
-maqRoutes.delete('/delete/:id', Maquina.destroyMaquina) //Deleta
+maqRoutes.post('/', Maquina.createMaquina) //cria
+maqRoutes.get('/', Maquina.getMaquina) //lista
+maqRoutes.get('/:id', Maquina.getMaquinaById)//diferente mas igual, lista por id
+maqRoutes.put('/:id', Maquina.updateMaquina) //Atualiza
+maqRoutes.delete('/:id', Maquina.destroyMaquina) //Deleta
 
 export default maqRoutes
