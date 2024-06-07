@@ -1,5 +1,4 @@
-import {Entity, BaseEntity, PrimaryGeneratedColumn, Column, ManyToMany} from 'typeorm'
-import Maquina from './maquina.entity'
+import {Entity, BaseEntity, PrimaryGeneratedColumn, Column} from 'typeorm'
 
 @Entity()
 export default class ModuloDescricao extends BaseEntity{

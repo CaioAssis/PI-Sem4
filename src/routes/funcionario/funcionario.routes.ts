@@ -2,7 +2,6 @@
 
 import { Router } from 'express'
 import FuncionarioController from '../../controllers/funcionario/funcionario.controller'
-import authMiddleware from '../../middlewares/auth.middleware'
 
 const funcRoutes = Router()
 

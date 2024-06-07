@@ -1,7 +1,6 @@
 //Contato dos compradores
 
 import { Router } from 'express'
-import authMiddleware from '../../middlewares/auth.middleware'
 import ClienteController from '../../controllers/cliente/cliente.controller'
 
 const clienteRoutes = Router()

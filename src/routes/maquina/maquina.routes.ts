@@ -1,7 +1,6 @@
 //Máquina específica comprada
 
 import { Router } from 'express'
-import authMiddleware from '../../middlewares/auth.middleware'
 import Maquina from '../../controllers/maquina/maquina.controller'
 
 const maqRoutes = Router()
