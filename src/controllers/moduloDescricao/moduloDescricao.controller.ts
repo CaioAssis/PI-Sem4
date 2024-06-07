@@ -5,14 +5,8 @@ export default class ModuloDescricaoController
 {
 
     static async createModuloDescricao(req: Request, res: Response) { //Cria um novo modulo descrição
-        const{ id } = req.params
         const{ titulo, descricao, imagem} = req.body
 
-        //verificando se campos estão em null
-        if(!id)
-        {
-            return res.status(400).json({error:'O código é obrigatório!'})
-        }
         if(!titulo)
         {
             return res.status(400).json({error: 'O titulo é obrigatório'})
@@ -26,10 +20,11 @@ export default class ModuloDescricaoController
         }
 
         const moduloDescricao = new ModuloDescricao()
-        moduloDescricao.id = Number(id)//atribuindo os valores obtidos no corpo da requisição
         moduloDescricao.titulo = titulo
         moduloDescricao.descricao = descricao
         moduloDescricao.imagem = imagem
+
+        await moduloDescricao.save()
 
         return res.status(201).json(moduloDescricao)
     }

@@ -1,4 +1,4 @@
-import {Entity, BaseEntity, PrimaryGeneratedColumn, Column, OneToMany} from 'typeorm'
+import {Entity, BaseEntity, PrimaryGeneratedColumn, Column, OneToMany, ManyToMany, JoinTable} from 'typeorm'
 import Vistoria from './vistoria.entity'
 import ModuloDescricao from './moduloDescricao.entity'
 
@@ -14,6 +14,7 @@ export default class Maquina extends BaseEntity{
     @OneToMany(()=> Vistoria, vistoria => vistoria.maquina)
     vistorias!: Vistoria[]
 
-    @OneToMany(()=> ModuloDescricao, moduloDescricao => moduloDescricao.maquinas)
+    @ManyToMany(()=> ModuloDescricao)
+    @JoinTable()
     modulosDescricao!: ModuloDescricao[]
 }

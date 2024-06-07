@@ -3,10 +3,10 @@ import ModuloDescricaoController from '../../controllers/moduloDescricao/moduloD
 
 const moduloDescricaoRoutes = Router()
 
-moduloDescricaoRoutes.post('/', ModuloDescricaoController.createModuloDescricao)//cria
-moduloDescricaoRoutes.get('/', ModuloDescricaoController.getModuloDescricao)//lista
-moduloDescricaoRoutes.get('/:id', ModuloDescricaoController.getModuloDescricaoById)//lista por id
-moduloDescricaoRoutes.delete('/:id', ModuloDescricaoController.destroyModuloDescricao)//deleta, destroi, extermina
-moduloDescricaoRoutes.put('/:id', ModuloDescricaoController.updateModuloDescricao)//atualiza
+moduloDescricaoRoutes.post('/save', ModuloDescricaoController.createModuloDescricao)//cria
+moduloDescricaoRoutes.get('/get', ModuloDescricaoController.getModuloDescricao)//lista
+moduloDescricaoRoutes.get('/get/:id', ModuloDescricaoController.getModuloDescricaoById)//lista por id
+moduloDescricaoRoutes.delete('/delete/:id', ModuloDescricaoController.destroyModuloDescricao)//deleta, destroi, extermina
+moduloDescricaoRoutes.put('/update/:id', ModuloDescricaoController.updateModuloDescricao)//atualiza
 
 export default moduloDescricaoRoutes

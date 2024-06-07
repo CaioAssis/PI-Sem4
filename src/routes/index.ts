@@ -8,10 +8,10 @@ import vistRoutes from './vistoria/vistoria.routes'
 
 const routes = Router()
 
-routes.use('/func',funcRoutes)
-routes.use('/client', clienteRoutes)
+routes.use('/usuario',funcRoutes)
+routes.use('/cliente', clienteRoutes)
 routes.use('/maquina',maqRoutes)
-routes.use('/moddesc',moduloDescricaoRoutes)
-routes.use('/insp', vistRoutes)
+routes.use('/modulo',moduloDescricaoRoutes)
+routes.use('/vistoria', vistRoutes)
 
 export default routes

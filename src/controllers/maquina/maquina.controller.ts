@@ -1,23 +1,45 @@
 import {Request, Response} from 'express'
 import maqRoutes from '../../routes/maquina/maquina.routes'
 import Maquina from '../../models/maquina.entity'
+import ModuloDescricao from '../../models/moduloDescricao.entity'
 
 export default class MaquinaController
 {
 
     //Inserindo um novo registro
     static async createMaquina(req: Request, res: Response) {
-        const{descricao} = req.body
-
+        const{descricao, modulos} = req.body
+        
         
         if(!descricao)
         {
             return res.status(400).json({error: 'O modelo é obrigatório!'})
         }
+        if (!modulos || !Array.isArray(modulos)) {
+            return res.status(400).json({ error: 'Os módulos são obrigatórios e devem ser um array!' });
+        }
+    
 
         const maquina = new Maquina()
         maquina.descricao = descricao
+        var mod: ModuloDescricao[] = []
 
+        const promessas = modulos.map(async (num) => {
+            const searchMod = await ModuloDescricao.find({ where: { id: Number(num) } });
+            return searchMod;
+        });
+        
+        // Resolve todas as promessas
+        const resultados = await Promise.all(promessas);
+        
+        // Adiciona os resultados ao array mod, sem apagar o conteúdo existente
+        resultados.forEach((resultado) => {
+            // Se searchMod for um array, você pode usar push para adicionar cada item individualmente
+            resultado.forEach((item) => mod.push(item));
+        });
+
+
+        maquina.modulosDescricao = mod
         await maquina.save()
 
         return res.status(201).json(maquina)
@@ -46,6 +68,9 @@ export default class MaquinaController
         return res.status(201).json(maquina)
 
     }
+
+
+
 
     static async destroyMaquina(req: Request, res: Response)
     {
@@ -102,3 +127,7 @@ export default class MaquinaController
     }
 
 }
+function useState(): [any, any] {
+    throw new Error('Function not implemented.')
+}
+
