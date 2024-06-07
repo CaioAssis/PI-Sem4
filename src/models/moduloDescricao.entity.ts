@@ -16,7 +16,4 @@ export default class ModuloDescricao extends BaseEntity{
     @Column()
     imagem!: string
 
-    @ManyToMany(() => Maquina, maquina => maquina.modulosDescricao)
-    maquinas!: Maquina
-
 }

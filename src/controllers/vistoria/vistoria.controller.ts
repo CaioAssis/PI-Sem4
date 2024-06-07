@@ -28,7 +28,7 @@ export default class VistoriaController {
         vistoria.maquina = maquina
         await vistoria.save()
 
-        return res.status(201).json(vistoria), 0
+        return res.status(201).json(vistoria)
     }
 
     //função que lista todas as máquinas
