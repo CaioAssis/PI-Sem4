@@ -6,7 +6,6 @@ export default class ModuloDescricaoController
 
     static async createModuloDescricao(req: Request, res: Response) { //Cria um novo modulo descrição
         const{ titulo, descricao, imagem} = req.body
-
         if(!titulo)
         {
             return res.status(400).json({error: 'O titulo é obrigatório'})
@@ -14,9 +13,6 @@ export default class ModuloDescricaoController
         if(!descricao)
         {
             return res.status(400).json({error: 'A descrição é obrigatória!'})
-        }
-        if(!imagem){
-            return res.status(400).json({error: 'A imagem é obrigatória!'})
         }
 
         const moduloDescricao = new ModuloDescricao()
@@ -78,24 +74,22 @@ export default class ModuloDescricaoController
 
     static async updateModuloDescricao(req: Request, res: Response)
     {
-        const id = req.params
+        const id = req.params.id
         const {titulo, descricao, imagem} = req.body
-
-        if(!id)
-        {
-            return res.status(400).json({error: 'O id é obrigatório'})
+        //console.log(titulo)
+        if(!id || isNaN(Number(id))){
+            console.log('id')
+            return res.status(400).json({ erro: 'O id é obrigatório'})
         }
         if(!titulo)
         {
+            console.log('tit')
             return res.status(400).json({error: 'O título é obrigatório'})
         }
         if(!descricao)
         {
-            return res.status(400).json({error: 'A descrição é obrigatório'})
-        }
-        if(!imagem)
-        {
-            return res.status(400).json({error: 'A imagem é obrigatório'})
+            console.log('desc')
+            return res.status(400).json({error: 'A descrição é obrigatória'})
         }
 
         const moduloDescricao = await ModuloDescricao.findOneBy({id: Number(id)}); 
