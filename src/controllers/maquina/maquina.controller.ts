@@ -25,7 +25,7 @@ export default class MaquinaController
         var mod: ModuloDescricao[] = []
 
         const promessas = modulos.map(async (num) => {
-            const searchMod = await ModuloDescricao.find({ where: { id: Number(num) } });
+            const searchMod = await ModuloDescricao.find({ where: { id: Number(num.id) } });
             return searchMod;
         });
         
