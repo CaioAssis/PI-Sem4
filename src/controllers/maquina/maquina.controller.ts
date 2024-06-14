@@ -2,7 +2,7 @@ import {Request, Response} from 'express'
 import maqRoutes from '../../routes/maquina/maquina.routes'
 import Maquina from '../../models/maquina.entity'
 import ModuloDescricao from '../../models/moduloDescricao.entity'
-import { getRepository } from 'typeorm'
+import dataBase from '../../database/ormconfig'
 
 export default class MaquinaController
 {
@@ -26,7 +26,7 @@ export default class MaquinaController
         var mod: ModuloDescricao[] = []
 
         const promessas = modulos.map(async (num) => {
-            const searchMod = await ModuloDescricao.find({ where: { id: Number(num.id) } });
+            const searchMod = await ModuloDescricao.find({ where: { id: Number(num) } });
             return searchMod;
         });
         
@@ -48,16 +48,11 @@ export default class MaquinaController
 
     //função que lista todas as máquinas
     static async getMaquina(req: Request, res: Response) {
+        const{codMaquina, descricao} = req.body
 
-        //const maquina = await Maquina.find()
-        try {
-            const maq = getRepository(Maquina);
-            const maquina = await maq.find({ relations: ['modulosDescricao'] });
-            return res.status(200).json(maquina);
-        } catch (error) {
-            console.error(error);
-            return res.status(500).json({ message: 'Internal server error' });
-        }
+        const maquina = await dataBase.getRepository(Maquina).createQueryBuilder("maquina").innerJoinAndSelect("maquina.modulosDescricao", "moduloDescricao").getMany()
+
+        return res.status(201).json(maquina)
     }
 
     static async getMaquinaById(req: Request, res: Response)
@@ -69,7 +64,11 @@ export default class MaquinaController
             return res.status(400).json({error: 'O id é obrigatório'})
         }
 
-        const maquina = await Maquina.find({where: {id: Number(id)}})
+        const maquina = await Maquina.find({where: {id: Number(id)},
+        relations: {
+            modulosDescricao: true
+        }
+    })
 
         return res.status(201).json(maquina)
 
