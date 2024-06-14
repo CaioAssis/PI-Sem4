@@ -1,4 +1,5 @@
-import {Entity, BaseEntity, PrimaryGeneratedColumn, Column} from 'typeorm'
+import {Entity, BaseEntity, PrimaryGeneratedColumn, Column, ManyToMany} from 'typeorm'
+import Maquina from './maquina.entity'
 
 @Entity()
 export default class ModuloDescricao extends BaseEntity{
@@ -14,5 +15,8 @@ export default class ModuloDescricao extends BaseEntity{
 
     @Column()
     imagem!: string
+
+    @ManyToMany(() => Maquina, maq => maq.modulosDescricao)
+    maquinas!: Maquina[]
 
 }

@@ -2,6 +2,7 @@ import {Request, Response} from 'express'
 import maqRoutes from '../../routes/maquina/maquina.routes'
 import Maquina from '../../models/maquina.entity'
 import ModuloDescricao from '../../models/moduloDescricao.entity'
+import { getRepository } from 'typeorm'
 
 export default class MaquinaController
 {
@@ -47,11 +48,16 @@ export default class MaquinaController
 
     //função que lista todas as máquinas
     static async getMaquina(req: Request, res: Response) {
-        const{codMaquina, descricao} = req.body
 
-        const maquina = await Maquina.find()
-
-        return res.status(201).json(maquina)
+        //const maquina = await Maquina.find()
+        try {
+            const maq = getRepository(Maquina);
+            const maquina = await maq.find({ relations: ['modulosDescricao'] });
+            return res.status(200).json(maquina);
+        } catch (error) {
+            console.error(error);
+            return res.status(500).json({ message: 'Internal server error' });
+        }
     }
 
     static async getMaquinaById(req: Request, res: Response)

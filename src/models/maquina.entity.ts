@@ -15,6 +15,10 @@ export default class Maquina extends BaseEntity{
     vistorias!: Vistoria[]
 
     @ManyToMany(()=> ModuloDescricao)
-    @JoinTable()
+    @JoinTable({
+        name: 'assos_maq_mod',
+        joinColumn: {name: 'maq_id', referencedColumnName: 'id'},
+        inverseJoinColumn: {name: 'mod_id', referencedColumnName: 'id'}
+    })
     modulosDescricao!: ModuloDescricao[]
 }
