@@ -132,12 +132,11 @@ export default class FuncController {
             return res.status(404).json({erro: 'Não encontrado'})
         }
 
-        //func.title = title || func.title // caso title for nulo na requisição (PUT), mantem o titulo original
         func.nome = nome
         func.matricula = matricula
         func.contato = contato
         func.usuario = usuario
-        func.senha = bcrypt.hashSync(senha,10) //senha + nº de vezes que vai encriptar
+        if(senha!= func.senha) func.senha = bcrypt.hashSync(senha,10) //senha + nº de vezes que vai encriptar
         func.role = role
         await func.save()
 
