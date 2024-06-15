@@ -17,7 +17,7 @@ export default class MaquinaController
             return res.status(400).json({error: 'O modelo é obrigatório!'})
         }
         if (!modulos || !Array.isArray(modulos)) {
-            return res.status(400).json({ error: 'Os módulos são obrigatórios e devem ser um array!' });
+            return res.status(400).json({ error: 'Os módulos são obrigatórios e devem ser um array!' })
         }
     
 
@@ -26,18 +26,18 @@ export default class MaquinaController
         var mod: ModuloDescricao[] = []
 
         const promessas = modulos.map(async (num) => {
-            const searchMod = await ModuloDescricao.find({ where: { id: Number(num) } });
-            return searchMod;
-        });
+            const searchMod = await ModuloDescricao.find({ where: { id: Number(num.id) } })
+            return searchMod
+        })
         
         // Resolve todas as promessas
-        const resultados = await Promise.all(promessas);
+        const resultados = await Promise.all(promessas)
         
         // Adiciona os resultados ao array mod, sem apagar o conteúdo existente
         resultados.forEach((resultado) => {
             // Se searchMod for um array, você pode usar push para adicionar cada item individualmente
-            resultado.forEach((item) => mod.push(item));
-        });
+            resultado.forEach((item) => mod.push(item))
+        })
 
 
         maquina.modulosDescricao = mod
@@ -66,7 +66,7 @@ export default class MaquinaController
 
         const maquina = await Maquina.find({where: {id: Number(id)},
         relations: {
-            modulosDescricao: true
+            modulosDescricao: true,
         }
     })
 
@@ -90,7 +90,7 @@ export default class MaquinaController
             return res.status(400).json({error:'O id é obrigatório'})
         }
 
-        const maquina = await Maquina.findOneBy({id: Number(id)}); 
+        const maquina = await Maquina.findOneBy({id: Number(id)}) 
 
         if(!maquina)
         {
@@ -106,26 +106,42 @@ export default class MaquinaController
     static async updateMaquina(req: Request, res: Response)
     {
         const { id }  = req.params
-        const descricao = req.body
+        const {descricao, modulos} = req.body
 
-        if(!id)
-        {
-            return res.status(400).json({error: 'O id é obrigatório'})
-        }
         if(!descricao)
         {
-            return res.status(400).json({error: 'O modelo é obrigatório'})
+            return res.status(400).json({error: 'O modelo é obrigatório!'})
+        }
+        if (!modulos || !Array.isArray(modulos)) {
+            return res.status(400).json({ error: 'Os módulos são obrigatórios e devem ser um array!' })
         }
 
-        const maquina = await Maquina.findOneBy({id: Number(id)}); 
+
+        const maquina = await Maquina.findOne({where: {id: Number(id)}, relations:['modulosDescricao']})
         if(!maquina)
         {
-            return res.status(404).json({error:'Máquina não encontrada'})
-
+            return res.status(400).json({error: 'Maquina não encontrada'})
         }
+        console.log(maquina)
         
         maquina.descricao = descricao
+        var mod: ModuloDescricao[] = []
 
+        const promessas = modulos.map(async (num) => {
+            const searchMod = await ModuloDescricao.find({ where: { id: Number(num.id) } })
+            return searchMod
+        })
+        
+        // Resolve todas as promessas
+        const resultados = await Promise.all(promessas)
+        
+        // Adiciona os resultados ao array mod, sem apagar o conteúdo existente
+        resultados.forEach((resultado) => {
+            // Se searchMod for um array, você pode usar push para adicionar cada item individualmente
+            resultado.forEach((item) => mod.push(item))
+        })
+        maquina.modulosDescricao = mod
+        console.log(maquina)
         await maquina.save()
 
         return res.json(maquina)
