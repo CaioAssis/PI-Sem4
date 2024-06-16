@@ -1,5 +1,6 @@
 import { Entity, BaseEntity, PrimaryGeneratedColumn, Column, OneToMany } from "typeorm"
 import Token from "./token.entity"
+import Vistoria from "./vistoria.entity"
 //import Vistoria from "./vistoria.entity"
 
 @Entity()
@@ -33,6 +34,6 @@ export default class Funcionario extends BaseEntity {
     @OneToMany(() => Token, token => token.func)
     tokens! : Token[]
 
-    /*@OneToMany(() => Vistoria, vistoria => vistoria.id)
-    vistoria: Vistoria[]*/
+    @OneToMany(() => Vistoria, vistoria => vistoria.id)
+    vistoria!: Vistoria[]
 }
