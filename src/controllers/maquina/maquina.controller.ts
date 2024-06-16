@@ -48,8 +48,8 @@ export default class MaquinaController {
     static async getMaquina(req: Request, res: Response) {
 
         //const maquina = await dataBase.getRepository(Maquina).createQueryBuilder("maquina").innerJoinAndSelect("maquina.modulosDescricao", "moduloDescricao").getMany()
-        const maquina = await Maquina.find({relations:['modulosDescricao']})
-
+        const maquina = await Maquina.find({relations:['modulosDescricao', 'vistorias']})
+        console.log(maquina)
         return res.status(201).json(maquina)
     }
 
@@ -109,31 +109,25 @@ export default class MaquinaController {
             return res.status(400).json({ error: 'Os módulos são obrigatórios e devem ser um array!' })
         }
 
-
         const maquina = await Maquina.findOne({ where: { id: Number(id) }, relations: ['modulosDescricao'] })
         if (!maquina) {
             return res.status(400).json({ error: 'Maquina não encontrada' })
         }
-        console.log(maquina)
 
-        maquina.descricao = descricao
         var mod: ModuloDescricao[] = []
-
         const promessas = modulos.map(async (num) => {
             const searchMod = await ModuloDescricao.find({ where: { id: Number(num.id) } })
             return searchMod
         })
-
-        // Resolve todas as promessas
         const resultados = await Promise.all(promessas)
-
-        // Adiciona os resultados ao array mod, sem apagar o conteúdo existente
         resultados.forEach((resultado) => {
             // Se searchMod for um array, você pode usar push para adicionar cada item individualmente
             resultado.forEach((item) => mod.push(item))
         })
+
+        maquina.descricao = descricao
         maquina.modulosDescricao = mod
-        console.log(maquina)
+
         await maquina.save()
 
         return res.json(maquina)
