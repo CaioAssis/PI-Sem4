@@ -1,6 +1,7 @@
 import { Request, Response } from 'express'
 import Vistoria from '../../models/vistoria.entity'
 import { Any, getRepository } from 'typeorm'
+import Maquina from '../../models/maquina.entity'
 
 export default class VistoriaController {
 
@@ -8,7 +9,7 @@ export default class VistoriaController {
     static async createVistoria(req: Request, res: Response) {
         const { data, anexo, status, maquina } = req.body
 
-        //verificando se campos estão em null
+        //verificando se campos estão null
         if (!data) {
             return res.status(400).json({ error: 'Data é obrigatório!' })
         }
@@ -22,10 +23,15 @@ export default class VistoriaController {
             return res.status(400).json({ error: 'Máquina é obrigatória!' })
         }
         const vistoria = new Vistoria()
+        const objMaquina = await Maquina.findOneBy({ id: Number(maquina) })
+        if (!objMaquina) return res.status(404).json({ error: 'Máquina não encontrada' })
+
         vistoria.data = data //atribuindo os valores obtidos no corpo da requisição
         vistoria.anexo = anexo
         vistoria.status = status
-        vistoria.maquina = maquina
+        vistoria.maquinaId = maquina
+        vistoria.maquina = objMaquina
+        
         await vistoria.save()
 
         return res.status(201).json(vistoria)
