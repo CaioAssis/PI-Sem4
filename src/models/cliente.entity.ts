@@ -1,4 +1,5 @@
-import {Entity, BaseEntity, PrimaryGeneratedColumn, Column} from 'typeorm'
+import {Entity, BaseEntity, PrimaryGeneratedColumn, Column, OneToMany} from 'typeorm'
+import Maquina from './maquina.entity'
 
 @Entity()
 export default class Cliente extends BaseEntity{
@@ -14,4 +15,8 @@ export default class Cliente extends BaseEntity{
 
     @Column()
     contato!: string
+
+    @OneToMany(() => Maquina, maquina => maquina.id)
+    maquinas!: Maquina[]
+
 }
