@@ -1,5 +1,6 @@
 import { DataSource } from "typeorm"
 import { join } from "path"
+import { createInitialUsers } from "../seeds/create-funcionario"
 
 const dataBase = new DataSource({
     type: 'sqlite',
@@ -9,14 +10,16 @@ const dataBase = new DataSource({
     entities: [
         join(__dirname, '..', 'models/*.{ts,js}')
     ]
-})
+});
 
-dataBase.initialize()
-.then(() => {
-    console.log('Banco de dados iniciado!')
-})
-.catch(() => {
-    console.log('Falha ao iniciar o banco de dados!')
-})
+(async () => {
+    try {
+      await dataBase.initialize();
+      console.log('Banco de dados iniciado!');
+      await createInitialUsers();
+    } catch (error) {
+      console.error('Falha ao iniciar o banco de dados!', error);
+    }
+  })()
 
 export default dataBase
