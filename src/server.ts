@@ -8,12 +8,11 @@ const app = express()
 const port = process.env.PORT || 3000
 
 app.use(cors())
-//app.use (express.json())
 app.use(bodyParser.json({ limit: '50mb' }))
 app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }))
 app.use(routes)
 
 app.listen(port, () => {
   console.log(`Servidor executando na porta ${port}`)
-  console.log(`Banco de dados`, dataBase.isInitialized ? 'inicializado' : 'não inicializado')
+  console.log(`Banco de dados `, dataBase.isInitialized ? 'inicializado' : 'não inicializado')
 })
