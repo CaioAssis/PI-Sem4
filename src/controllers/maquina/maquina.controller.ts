@@ -56,7 +56,7 @@ export default class MaquinaController {
 
         //const maquina = await dataBase.getRepository(Maquina).createQueryBuilder("maquina").innerJoinAndSelect("maquina.modulosDescricao", "moduloDescricao").getMany()
         const maquina = await Maquina.find({relations:['modulosDescricao', 'vistorias', 'cliente']})
-        console.log(maquina)
+        //console.log(maquina)
         return res.status(201).json(maquina)
     }
 

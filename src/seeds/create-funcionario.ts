@@ -1,7 +1,6 @@
 import Funcionario from "../models/funcionario.entity"
 import bcrypt from 'bcrypt'
 
-
 export const createInitialUsers = async () => {
 
   const seeds = [
